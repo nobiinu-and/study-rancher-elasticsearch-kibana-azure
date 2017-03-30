@@ -1,0 +1,75 @@
+version: '2'
+services:
+  jenkins-plugins:
+    metadata:
+      plugins: |-
+        credentials
+        git
+        git-client
+        github
+        github-api
+        github-oauth
+        greenballs
+        junit
+        plain-credentials
+        scm-api
+        ssh-credentials
+        ssh-slaves
+        swarm
+    scale: 1
+    start_on_create: true
+  jenkins-primary:
+    metadata:
+      plugins: |-
+        credentials
+        git
+        git-client
+        github
+        github-api
+        github-oauth
+        greenballs
+        junit
+        plain-credentials
+        scm-api
+        ssh-credentials
+        ssh-slaves
+        swarm
+    scale: 1
+    start_on_create: true
+  jenkins-datavolume:
+    metadata:
+      plugins: |-
+        credentials
+        git
+        git-client
+        github
+        github-api
+        github-oauth
+        greenballs
+        junit
+        plain-credentials
+        scm-api
+        ssh-credentials
+        ssh-slaves
+        swarm
+    scale: 1
+    start_on_create: true
+  Jenkins-LB:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      certs: []
+      port_rules:
+      - hostname: ''
+        path: ''
+        priority: 1
+        protocol: http
+        service: jenkins-primary
+        source_port: 28080
+        target_port: 8080
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 42
+      unhealthy_threshold: 3
+      interval: 2000
